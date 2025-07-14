@@ -15,7 +15,10 @@ document.getElementById('start-btn').onclick = async () => {
   document.getElementById('start-screen').style.display = 'none';
   document.getElementById('camera-screen').style.display = 'flex';
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+   const stream = await navigator.mediaDevices.getUserMedia({
+  video: { facingMode: 'user' } 
+});
+
     camera.srcObject = stream;
   } catch (err) {
     alert("Camera access denied or not available.");
