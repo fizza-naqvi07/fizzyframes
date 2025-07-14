@@ -25,11 +25,11 @@ document.querySelectorAll('#filter-buttons button').forEach(btn => {
 });
 
 snapBtn.onclick = () => {
-    const flash = document.getElementById('flash');
-flash.style.opacity = '1';
-setTimeout(() => {
-  flash.style.opacity = '0';
-}, 150);
+  const flash = document.getElementById('flash');
+  flash.style.opacity = '1';
+  setTimeout(() => {
+    flash.style.opacity = '0';
+  }, 150);
 
   const context = canvas.getContext('2d');
   canvas.width = 500;
@@ -105,4 +105,3 @@ shareBtn.onclick = async () => {
     alert('Sharing not supported on this browser.');
   }
 };
-
