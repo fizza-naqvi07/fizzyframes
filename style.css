@@ -44,7 +44,6 @@ body {
   margin-top: 40px;
 }
 
-
 .tagline {
   font-family: 'Dancing Script', cursive;
   font-size: 2.4em;
@@ -175,3 +174,49 @@ canvas {
   z-index: 9999;
   transition: opacity 0.2s ease;
 }
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 16px;
+    overflow-y: auto;
+  }
+
+  video {
+    width: 90vw;
+  }
+
+  .brand-title {
+    font-size: 2.8em;
+  }
+
+  .tagline {
+    font-size: 1.8em;
+  }
+
+  .cute-btn {
+    font-size: 16px;
+    padding: 12px 22px;
+  }
+
+  #caption-input {
+    width: 80%;
+    font-size: 22px;
+  }
+
+  #reel-container {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+  }
+
+  #polaroid-output {
+    width: 85vw;
+    max-height: 70vh;
+  }
+
+  #reel-buttons {
+    flex-direction: row;
+    gap: 15px;
+  }
+}
+
