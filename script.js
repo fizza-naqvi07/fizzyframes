@@ -49,13 +49,9 @@ snapBtn.onclick = () => {
 generateBtn.onclick = () => {
   const caption = captionInput.value;
   const ctx = canvas.getContext('2d');
-
-  const screenWidth = window.innerWidth;
-  const isMobile = screenWidth <= 600;
-
-  const width = isMobile ? 300 : 400;
-  const imageWidth = isMobile ? 220 : 280;
-  const imageHeight = isMobile ? 300 : 370;
+  const width = 400;
+  const imageWidth = 280;
+  const imageHeight = 370;
   const spacing = 20;
   const height = (imageHeight + spacing) * photos.length + 80;
 
@@ -77,7 +73,7 @@ generateBtn.onclick = () => {
       ctx.strokeRect(x, y, imageWidth, imageHeight);
 
       if (i === photos.length - 1) {
-        ctx.font = isMobile ? 'bold 28px "Dancing Script", cursive' : 'bold 40px "Dancing Script", cursive';
+        ctx.font = 'bold 40px "Dancing Script", cursive';
         ctx.fillStyle = '#5a3b2b';
         ctx.textAlign = 'center';
         ctx.fillText(caption, width / 2, height - 30);
@@ -90,7 +86,6 @@ generateBtn.onclick = () => {
     };
   });
 };
-
 
 downloadBtn.onclick = () => {
   const a = document.createElement('a');
