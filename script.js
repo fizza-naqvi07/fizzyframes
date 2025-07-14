@@ -14,8 +14,13 @@ const canvas = document.getElementById('canvas');
 document.getElementById('start-btn').onclick = async () => {
   document.getElementById('start-screen').style.display = 'none';
   document.getElementById('camera-screen').style.display = 'flex';
-  const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-  camera.srcObject = stream;
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    camera.srcObject = stream;
+  } catch (err) {
+    alert("Camera access denied or not available.");
+    console.error(err);
+  }
 };
 
 document.querySelectorAll('#filter-buttons button').forEach(btn => {
@@ -24,22 +29,22 @@ document.querySelectorAll('#filter-buttons button').forEach(btn => {
   };
 });
 
+// Snap photo
 snapBtn.onclick = () => {
   const flash = document.getElementById('flash');
   flash.style.opacity = '1';
-  setTimeout(() => {
-    flash.style.opacity = '0';
-  }, 150);
+  setTimeout(() => { flash.style.opacity = '0'; }, 150);
 
   const context = canvas.getContext('2d');
-  canvas.width = 500;
+  canvas.width = camera.videoWidth;
   canvas.height = camera.videoHeight;
   context.filter = camera.style.filter;
-  context.drawImage(camera, 0, 0);
+  context.drawImage(camera, 0, 0, canvas.width, canvas.height);
   photos.push(canvas.toDataURL());
+
   currentPhoto++;
   if (currentPhoto < totalPhotos) {
-    photoCount.textContent = Photo ${currentPhoto + 1} of ${totalPhotos};
+    photoCount.textContent = `Photo ${currentPhoto + 1} of ${totalPhotos}`;
   } else {
     document.getElementById('camera-screen').style.display = 'none';
     document.getElementById('reel-screen').style.display = 'flex';
@@ -49,10 +54,13 @@ snapBtn.onclick = () => {
 generateBtn.onclick = () => {
   const caption = captionInput.value;
   const ctx = canvas.getContext('2d');
-  const width = 400;
-  const height = 900;
-  const spacing = 20;
+
+  const maxWidth = 400;
+  const width = Math.min(maxWidth, window.innerWidth - 40);
+  const imageWidth = width - 50;
   const imageHeight = 240;
+  const spacing = 20;
+  const height = photos.length * (imageHeight + spacing) + 80;
 
   canvas.width = width;
   canvas.height = height;
@@ -64,16 +72,19 @@ generateBtn.onclick = () => {
     const img = new Image();
     img.src = photo;
     img.onload = () => {
-      const x = (width - 350) / 2;
-      ctx.drawImage(img, x, i * (imageHeight + spacing) + 20, 350, imageHeight);
+      const x = (width - imageWidth) / 2;
+      const y = i * (imageHeight + spacing) + 20;
+      ctx.drawImage(img, x, y, imageWidth, imageHeight);
       ctx.strokeStyle = '#5a3b2b';
       ctx.lineWidth = 2;
-      ctx.strokeRect(x, i * (imageHeight + spacing) + 20, 350, imageHeight);
+      ctx.strokeRect(x, y, imageWidth, imageHeight);
+
       if (i === photos.length - 1) {
-        ctx.font = 'bold 40px "Dancing Script", cursive';
+        ctx.font = 'bold 34px "Dancing Script", cursive';
         ctx.fillStyle = '#5a3b2b';
         ctx.textAlign = 'center';
         ctx.fillText(caption, width / 2, height - 30);
+
         polaroidOutput.src = canvas.toDataURL();
         document.getElementById('reel-screen').style.display = 'none';
         document.getElementById('result-screen').style.display = 'flex';
@@ -105,3 +116,4 @@ shareBtn.onclick = async () => {
     alert('Sharing not supported on this browser.');
   }
 };
+
