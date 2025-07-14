@@ -50,9 +50,10 @@ generateBtn.onclick = () => {
   const caption = captionInput.value;
   const ctx = canvas.getContext('2d');
   const width = 400;
-  const height = 900;
+  const imageWidth = 280;
+  const imageHeight = 370;
   const spacing = 20;
-  const imageHeight = 240;
+  const height = (imageHeight + spacing) * photos.length + 80;
 
   canvas.width = width;
   canvas.height = height;
@@ -64,11 +65,13 @@ generateBtn.onclick = () => {
     const img = new Image();
     img.src = photo;
     img.onload = () => {
-      const x = (width - 350) / 2;
-      ctx.drawImage(img, x, i * (imageHeight + spacing) + 20, 350, imageHeight);
+      const x = (width - imageWidth) / 2;
+      const y = i * (imageHeight + spacing) + 20;
+      ctx.drawImage(img, x, y, imageWidth, imageHeight);
       ctx.strokeStyle = '#5a3b2b';
       ctx.lineWidth = 2;
-      ctx.strokeRect(x, i * (imageHeight + spacing) + 20, 350, imageHeight);
+      ctx.strokeRect(x, y, imageWidth, imageHeight);
+
       if (i === photos.length - 1) {
         ctx.font = 'bold 40px "Dancing Script", cursive';
         ctx.fillStyle = '#5a3b2b';
