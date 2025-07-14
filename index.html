@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FizzyFrames</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&family=Dancing+Script&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="bg-overlay"></div>
+
+  <div class="section animated" id="start-screen">
+    <h1 class="brand-title">📸 FizzyFrames - Photobooth</h1>
+    <p class="tagline">Capture. Create. Keep.</p>
+    <button class="cute-btn" id="start-btn">Start</button>
+  </div>
+
+  <div class="section animated" id="camera-screen" style="display: none;">
+    <video id="camera" autoplay playsinline></video>
+    <p id="photo-count">Photo 1/3</p>
+    <div id="filter-buttons">
+      <button class="cute-btn" data-filter="none">Natural</button>
+      <button class="cute-btn" data-filter="grayscale(100%)">Noir</button>
+      <button class="cute-btn" data-filter="blur(2px)">Haze</button>
+      <button class="cute-btn" data-filter="sepia(0.6) saturate(1.2)">Retro</button>
+    </div>
+    <button class="cute-btn" id="snap-btn">📷 Snap</button>
+  </div>
+
+  <div class="section animated" id="reel-screen" style="display: none;">
+    <input type="text" id="caption-input" placeholder="Add a cute caption 💬" />
+    <button class="cute-btn" id="generate-btn">🎞️ Get your polaroid trail...</button>
+  </div>
+
+  <div class="section animated" id="result-screen" style="display: none;">
+    <div id="reel-container">
+      <img id="polaroid-output" alt="Your Polaroid Reel will appear here" />
+      <div id="reel-buttons">
+        <a class="cute-btn" id="download-btn" style="display: none;">⬇️ Download</a>
+        <button class="cute-btn" id="share-btn" style="display: none;">📤 Share</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="canvas" style="display: none;"></canvas>
+  <div id="flash"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
